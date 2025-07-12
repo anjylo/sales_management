@@ -14,6 +14,34 @@ export const isLoggedIn = async () => {
   return response.status === 200;
 }
 
+export const register = async (name, email, password) => {
+  const url = import.meta.env.VITE_APP_URL;
+  
+  try {
+    const response = await fetch(`${url}/api/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({ name, email, password })
+    })
+
+    const result = await response.json()
+
+    if (!response.ok) {
+      throw new Error(result.message || 'Registration failed')
+    }
+
+    return { success: true }
+  } catch (error) {
+    return { 
+      success: false, 
+      message: error.message 
+    }
+  }
+}
+
 export const login = async (email, password) => {
   const url = import.meta.env.VITE_APP_URL;
 

@@ -1,22 +1,23 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { login } from '@utils/auth'
+import { register } from '@utils/auth'
 
+const name = ref('')
 const email = ref('')
 const password = ref('')
 const loading = ref(false)
 const error = ref('')
 const router = useRouter()
 
-const handleLogin = async () => {
+const handleRegister = async () => {
   loading.value = true
   error.value = ''
 
-  const result = await login(email.value, password.value)
+  const result = await register(name.value, email.value, password.value)
 
   if (result.success) {
-    router.push('/dashboard')
+    router.push('/login')
   } else {
     error.value = result.message
   }
@@ -29,11 +30,20 @@ const handleLogin = async () => {
   <v-container class="fill-height d-flex align-center justify-center">
     <v-card class="pa-6" max-width="500">
       <v-card-title class="text-h6 font-weight-bold">
-        Login
+        Register
       </v-card-title>
 
       <v-card-text>
-        <v-form @submit.prevent="handleLogin">
+        <v-form @submit.prevent="handleRegister">
+          <v-text-field
+            v-model="name"
+            label="Name"
+            type="text"
+            required
+            width="400"
+            prepend-inner-icon="mdi-account"
+          />
+
           <v-text-field
             v-model="email"
             label="Email"
@@ -63,7 +73,7 @@ const handleLogin = async () => {
             :loading="loading"
             block
           >
-            Login
+            Register
           </v-btn>
 
           <v-container 
@@ -75,10 +85,10 @@ const handleLogin = async () => {
               color="primary"
               class="pa-0 text-none text-decoration-underline"
               :to="{
-                path: '/register'
+                path: '/login'
               }"
             >
-              Don't have an account?
+              Already have an account?
             </v-btn>
           </v-container>
         </v-form>
