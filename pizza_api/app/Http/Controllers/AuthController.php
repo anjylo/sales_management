@@ -46,4 +46,25 @@ class AuthController extends Controller
             ->json([ 'message' => 'Success'])
             ->cookie('access_token', $token, 30, null, null, false, true);
     }   
+
+    /**
+     * Get the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function user()
+    {
+        $user = $this->service->user();
+
+        if (! $user) {
+            return response()->json([
+                'message' => 'Unauthenticated.',
+            ], 401);
+        }
+
+        return response()->json([
+            'name' => $user->name,
+            'email' => $user->email,
+        ]);
+    }
 }

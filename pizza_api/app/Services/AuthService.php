@@ -31,4 +31,9 @@ class AuthService
 
 		return $token;
 	}
+
+	public function user(): User | null
+	{
+		return auth()->user();
+	}
 }
