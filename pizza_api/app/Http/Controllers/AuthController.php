@@ -48,6 +48,20 @@ class AuthController extends Controller
     }   
 
     /**
+     * Logout user
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logout()
+	{
+        $this->service->logout();
+
+        return response()
+            ->json(['message' => 'Logged out successfully'])
+            ->withoutCookie('access_token');
+	}
+
+    /**
      * Get the authenticated User.
      *
      * @return \Illuminate\Http\JsonResponse

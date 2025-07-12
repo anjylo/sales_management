@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-
 class AuthService
 {
 	public function register(array $data): User
@@ -30,6 +29,11 @@ class AuthService
 		}
 
 		return $token;
+	}
+
+	public function logout(): void
+	{
+			auth()->logout();
 	}
 
 	public function user(): User | null
