@@ -3,7 +3,13 @@
 </script>
 
 <template>
-  <router-view></router-view>
+  <v-app>
+    <v-main>
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <style scoped>
