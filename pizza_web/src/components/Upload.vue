@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { toast } from 'vue3-toastify'
+import { uploadCsv } from '@utils/upload'
 
 const file = ref(null)
 const uploadType = ref('pizzatypes')
@@ -19,8 +20,21 @@ const handleUpload = async () => {
     return
   }
 
-  // upload logic
+  loading.value = true
+
+  const result = await uploadCsv(file.value, uploadType.value)
+    
+  if (result.success) {
+    toast.success('Upload successful!')
+    file.value = null
+    uploadType.value = 'pizzatypes'
+  } else {
+    toast.error(result.message)
+  }
+
+  loading.value = false
 }
+
 </script>
 
 <template>
