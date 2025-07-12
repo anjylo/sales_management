@@ -71,6 +71,29 @@ export const login = async (email, password) => {
   }
 }
 
+export const logout = async () => {
+  const url = import.meta.env.VITE_APP_URL;
+  
+  try {
+
+    await fetch(`${url}/api/logout`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+    });
+
+    return { success: true }
+  } catch (error) {
+    return { 
+      success: false, 
+      message: error.message 
+    }
+  }
+};
+
 export const fetchUser = async () => {
   const url = import.meta.env.VITE_APP_URL;
   
