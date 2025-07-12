@@ -21,7 +21,18 @@ const vuetify = createVuetify({
   },
 })
 
+// Toastify
+import Vue3Toastify, { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+
+const vueToast = {
+  transition: toast.TRANSITIONS.ZOOM,
+  position: toast.POSITION.TOP_CENTER,
+  autoClose: 3000
+}
+
 const app = createApp(App)
 app.use(router)
 app.use(vuetify)
+app.use(Vue3Toastify, vueToast)
 app.mount('#app')
