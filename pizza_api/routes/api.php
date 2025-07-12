@@ -1,21 +1,29 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ImportController;
+use App\Http\Controllers\ReportController;
 
-Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register']);
-Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
+// Public routes
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
-
+// Protected routes
 Route::middleware(['jwt.cookie', 'auth:api'])->group(function () {
-    Route::get('/user', [\App\Http\Controllers\AuthController::class, 'user']);
-    Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
+    // Auth
+    Route::get('/user', [AuthController::class, 'user']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 
-    Route::post('/import', [\App\Http\Controllers\ImportController::class, 'import']);
+    // Import
+    Route::post('/import', [ImportController::class, 'import']);
 
-    Route::get('/report/top-selling', [\App\Http\Controllers\ReportController::class, 'topSellingPizzas']);
-    Route::get('/report/sales-by-size', [\App\Http\Controllers\ReportController::class, 'salesBySize']);
-    Route::get('/report/sales-by-day', [\App\Http\Controllers\ReportController::class, 'salesByDay']);
-    Route::get('/report/sales-by-month', [\App\Http\Controllers\ReportController::class, 'salesByMonth']);
-    Route::get('/report/sales-by-year', [\App\Http\Controllers\ReportController::class, 'salesByYear']);
+    // Reports
+    Route::prefix('report')->group(function () {
+        Route::get('/top-selling', [ReportController::class, 'topSellingPizzas']);
+        Route::get('/sales-by-size', [ReportController::class, 'salesBySize']);
+        Route::get('/sales-by-day', [ReportController::class, 'salesByDay']);
+        Route::get('/sales-by-month', [ReportController::class, 'salesByMonth']);
+        Route::get('/sales-by-year', [ReportController::class, 'salesByYear']);
+    });
 });

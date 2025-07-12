@@ -13,7 +13,7 @@ class ImportService
 {
     public function import(UploadedFile $file, string $type)
     {
-        // Ensure all lines are UTF-8 encoded to prevent malformed character errors from non-UTF-8 CSVs.
+		// Ensure all lines are UTF-8 encoded to prevent malformed character errors from non-UTF-8 CSVs.
 
 		// Read lines from file
 		$lines = file($file->getRealPath());
@@ -67,5 +67,4 @@ class ImportService
 			$modelClass::insert($chunk);
 		}
 	}
-	
 }
