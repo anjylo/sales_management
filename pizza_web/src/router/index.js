@@ -4,6 +4,9 @@ import Login from '@views/Login.vue'
 import Register from '@views/Register.vue'
 import Dashboard from '@views/Dashboard.vue'
 
+import Upload from '@/components/Upload.vue'
+import Report from '@/components/Report.vue'
+
 import * as auth from '@utils/auth'
 
 const routes = [
@@ -27,7 +30,23 @@ const routes = [
     component: Dashboard,
     meta: {
       requiresAuth: true
-    }
+    },
+    children: [
+      {
+        path: '',
+        redirect: { name: 'upload' },
+      },
+      {
+        path: 'upload',
+        name: 'upload',
+        component: Upload,
+      },
+      {
+        path: 'report',
+        name: 'report',
+        component: Report,
+      },
+    ],
   },
 ]
 

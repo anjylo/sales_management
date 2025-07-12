@@ -70,3 +70,20 @@ export const login = async (email, password) => {
     }
   }
 }
+
+export const fetchUser = async () => {
+  const url = import.meta.env.VITE_APP_URL;
+  
+  const response = await fetch(`${url}/api/user`, {
+     method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+  })
+
+  const data = await response.json()
+
+  return data
+}
