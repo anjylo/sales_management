@@ -6,8 +6,7 @@ use App\Services\AuthService;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRegisterRequest;
-
-use App\Models\User;
+use App\Http\Requests\UserLoginRequest;
 
 class AuthController extends Controller
 {
@@ -29,4 +28,22 @@ class AuthController extends Controller
         
         return response()->json($user, 201);
     }
+
+    /**
+     * Get a JWT via given credentials.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function login(UserLoginRequest $request)
+    {
+        $token = $this->service->login($request->validated());
+        
+        if (! $token) {
+            return response()->json(['message' => 'Invalid email or password. Please try again.'], 401);
+        }
+
+        return response()
+            ->json([ 'message' => 'Success'])
+            ->cookie('access_token', $token, 30, null, null, false, true);
+    }   
 }

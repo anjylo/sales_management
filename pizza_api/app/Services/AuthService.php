@@ -17,4 +17,18 @@ class AuthService
 
 		return $user;
 	}
+
+	public function login(array $data): string | bool
+	{
+		$credentials = [
+			'email' => $data['email'],
+			'password' => $data['password'],
+		];
+
+		if (! $token = auth()->attempt($credentials)) {
+			return false;
+		}
+
+		return $token;
+	}
 }
