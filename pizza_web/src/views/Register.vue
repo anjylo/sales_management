@@ -1,34 +1,34 @@
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { register } from '@utils/auth'
-import { toast } from 'vue3-toastify';
+  import { ref } from 'vue'
+  import { useRouter } from 'vue-router'
+  import { register } from '@utils/auth'
+  import { toast } from 'vue3-toastify';
 
-const name = ref('')
-const email = ref('')
-const password = ref('')
-const loading = ref(false)
-const router = useRouter()
+  const name = ref('')
+  const email = ref('')
+  const password = ref('')
+  const loading = ref(false)
+  const router = useRouter()
 
-const handleRegister = async () => {
-  loading.value = true
+  const handleRegister = async () => {
+    loading.value = true
 
-  const result = await register(name.value, email.value, password.value)
+    const result = await register(name.value, email.value, password.value)
 
-  if (result.success) {
-    toast.success('Registration Success', {
-      onClose: () => router.push('/login')
-    })
-  } else {
-    toast.error(result.message)
+    if (result.success) {
+      toast.success('Registration Success', {
+        onClose: () => router.push('/login')
+      })
+    } else {
+      toast.error(result.message)
+    }
+
+    loading.value = false
   }
-
-  loading.value = false
-}
 </script>
 
 <template>
-  <v-container class="fill-height d-flex align-center justify-center">
+  <v-container class="d-flex align-center justify-center">
     <v-card class="pa-6" max-width="500">
       <v-card-title class="text-h6 font-weight-bold">
         Register
@@ -95,7 +95,5 @@ const handleRegister = async () => {
 </template>
 
 <style scoped>
-.fill-height {
-  min-height: 100vh;
-}
+
 </style>

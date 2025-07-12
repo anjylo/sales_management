@@ -12,17 +12,23 @@ import * as auth from '@utils/auth'
 const routes = [
   { 
     path: '/', 
-    redirect: '/dashboard' 
+    redirect: '/dashboard'
   },
   { 
     path: '/login', 
     name: 'Login', 
-    component: Login 
+    component: Login,
+    meta: {
+      title: 'Login'
+    }
   },
   { 
     path: '/register', 
     name: 'Register', 
-    component: Register 
+    component: Register,
+    meta: {
+      title: 'Register'
+    }
   },
   { 
     path: '/dashboard', 
@@ -40,11 +46,17 @@ const routes = [
         path: 'upload',
         name: 'upload',
         component: Upload,
+        meta: {
+          title: 'Dashboard | Upload'
+        }
       },
       {
         path: 'report',
         name: 'report',
         component: Report,
+        meta: {
+          title: 'Dashboard | Report'
+        }
       },
     ],
   },
@@ -56,7 +68,8 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
-  
+  document.title = to.meta.title
+
   if (to.meta.requiresAuth) {
     const isAuthenticated = await auth.isLoggedIn()
 

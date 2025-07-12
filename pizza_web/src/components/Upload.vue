@@ -38,7 +38,7 @@ const handleUpload = async () => {
 </script>
 
 <template>
-  <v-card class="pa-6" max-width="400">
+  <v-card class="pa-6" min-width="400">
     <v-card-title class="text-h6 font-weight-bold">Upload CSV</v-card-title>
 
     <v-card-text>

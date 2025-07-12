@@ -1,8 +1,7 @@
+const URL = import.meta.env.VITE_APP_URL;
 
 export const isLoggedIn = async () => {
-  const url = import.meta.env.VITE_APP_URL;
-
-  const response = await fetch(`${url}/api/user`, {
+  const response = await fetch(`${URL}/api/user`, {
      method: 'GET',
       credentials: 'include',
       headers: {
@@ -15,10 +14,8 @@ export const isLoggedIn = async () => {
 }
 
 export const register = async (name, email, password) => {
-  const url = import.meta.env.VITE_APP_URL;
-  
   try {
-    const response = await fetch(`${url}/api/register`, {
+    const response = await fetch(`${URL}/api/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -43,10 +40,8 @@ export const register = async (name, email, password) => {
 }
 
 export const login = async (email, password) => {
-  const url = import.meta.env.VITE_APP_URL;
-
   try {
-    const response = await fetch(`${url}/api/login`, {
+    const response = await fetch(`${URL}/api/login`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -72,11 +67,8 @@ export const login = async (email, password) => {
 }
 
 export const logout = async () => {
-  const url = import.meta.env.VITE_APP_URL;
-  
   try {
-
-    await fetch(`${url}/api/logout`, {
+    await fetch(`${URL}/api/logout`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -95,9 +87,7 @@ export const logout = async () => {
 };
 
 export const fetchUser = async () => {
-  const url = import.meta.env.VITE_APP_URL;
-  
-  const response = await fetch(`${url}/api/user`, {
+  const response = await fetch(`${URL}/api/user`, {
      method: 'GET',
       credentials: 'include',
       headers: {

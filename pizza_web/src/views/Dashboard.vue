@@ -1,34 +1,34 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-import { fetchUser, logout } from '@utils/auth'
-import { useRouter } from 'vue-router'
+  import { onMounted, ref } from 'vue'
+  import { fetchUser, logout } from '@utils/auth'
+  import { useRouter } from 'vue-router'
 
-const name = ref('')
-const email = ref('')
-const router = useRouter()
+  const name = ref('')
+  const email = ref('')
+  const router = useRouter()
 
-const handleFetchUser = async () => {
-  const user = await fetchUser()
+  const handleFetchUser = async () => {
+    const user = await fetchUser()
 
-  if (user) {
-    name.value = user.name
-    email.value = user.email
+    if (user) {
+      name.value = user.name
+      email.value = user.email
+    }
   }
-}
 
-const handleLogout = async () => {
-  if (await logout()) {
-    router.push({ name: 'Login' })
+  const handleLogout = async () => {
+    if (await logout()) {
+      router.push({ name: 'Login' })
+    }
   }
-}
 
-onMounted(() => {
-  handleFetchUser()
-})
+  onMounted(() => {
+    handleFetchUser()
+  })
 </script>
 
 <template>
-  <v-container class="fill-height d-flex align-center justify-center">
+  <v-container class="d-flex align-center justify-center">
     <v-navigation-drawer permanent>
       <v-list-item
         prepend-icon="mdi-account-circle"
@@ -64,16 +64,14 @@ onMounted(() => {
       </template>
     </v-navigation-drawer>
 
-    <v-main class="pa-0">
-      <v-container fluid>
-        <router-view />
-      </v-container>
-    </v-main>
+    <v-container 
+      class="d-flex justify-center"
+      fluid
+    >
+      <router-view />
+    </v-container>
   </v-container>
 </template>
-
 <style scoped>
-.fill-height {
-  min-height: 100vh;
-}
+
 </style>

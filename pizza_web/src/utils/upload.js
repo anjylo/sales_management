@@ -1,6 +1,6 @@
-export const uploadCsv = async (file, uploadType) => {
-  const url = import.meta.env.VITE_APP_URL;
+const url = import.meta.env.VITE_APP_URL;
 
+export const uploadCsv = async (file, uploadType) => {
   const formData = new FormData()
   formData.append('file', file)
   formData.append('type', uploadType)
