@@ -2,27 +2,29 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { login } from '@utils/auth'
+import { toast } from 'vue3-toastify';
 
 const email = ref('')
 const password = ref('')
 const loading = ref(false)
-const error = ref('')
 const router = useRouter()
 
 const handleLogin = async () => {
   loading.value = true
-  error.value = ''
 
   const result = await login(email.value, password.value)
 
   if (result.success) {
-    router.push('/dashboard')
+    toast.success('Login Success', {
+      onClose: () => router.push('/dashboard')
+    })
   } else {
-    error.value = result.message
+    toast.error(result.message)
   }
 
   loading.value = false
 }
+
 </script>
 
 <template>
@@ -51,10 +53,6 @@ const handleLogin = async () => {
             width="400"
             prepend-inner-icon="mdi-lock"
           />
-
-          <v-alert v-if="error" type="error" class="mt-2">
-            {{ error }}
-          </v-alert>
 
           <v-btn
             type="submit"

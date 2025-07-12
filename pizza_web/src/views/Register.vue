@@ -2,24 +2,25 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { register } from '@utils/auth'
+import { toast } from 'vue3-toastify';
 
 const name = ref('')
 const email = ref('')
 const password = ref('')
 const loading = ref(false)
-const error = ref('')
 const router = useRouter()
 
 const handleRegister = async () => {
   loading.value = true
-  error.value = ''
 
   const result = await register(name.value, email.value, password.value)
 
   if (result.success) {
-    router.push('/login')
+    toast.success('Registration Success', {
+      onClose: () => router.push('/login')
+    })
   } else {
-    error.value = result.message
+    toast.error(result.message)
   }
 
   loading.value = false
@@ -61,10 +62,6 @@ const handleRegister = async () => {
             width="400"
             prepend-inner-icon="mdi-lock"
           />
-
-          <v-alert v-if="error" type="error" class="mt-2">
-            {{ error }}
-          </v-alert>
 
           <v-btn
             type="submit"
